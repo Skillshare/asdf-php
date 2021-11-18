@@ -13,9 +13,8 @@ jobs:
         container:
           - ubuntu:latest
         php-version:
-          - 7.4.14
-          - 8.0.0
-          - latest
+          - 7.4.25
+          - 8.0.8
 
     env:
       DEBIAN_FRONTEND: noninteractive
@@ -41,15 +40,14 @@ jobs:
         os:
           - macos-latest
         php-version:
-          - 7.4.14
-          - 8.0.0
-          - latest
+          - 7.4.25
+          - 8.0.8
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Install packages
-        run: brew install autoconf automake bison freetype gd gettext icu4c krb5 libedit libiconv libjpeg libpng libxml2 libzip openssl@1.1 pkg-config re2c zlib
+        run: brew install autoconf automake bison freetype gd gettext icu4c krb5 libedit libiconv libjpeg libpng libxml2 libzip openssl@1.1 pcre pkg-config re2c zlib
 
       - name: Install conflicting packages
         run: brew install openssl@3  
