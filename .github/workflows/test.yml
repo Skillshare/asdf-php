@@ -25,7 +25,7 @@ jobs:
         run: brew install autoconf automake bison freetype gd gettext icu4c krb5 libedit libiconv libjpeg libpng libxml2 libzip openssl@3 pcre pkg-config re2c zlib
 
       - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v1
+        uses: asdf-vm/actions/plugin-test@v2
         with:
           command: php --version
           version: ${{ matrix.php-version }}
