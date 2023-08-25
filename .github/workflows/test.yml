@@ -1,4 +1,4 @@
-name: Main workflow
+name: Test
 
 on:
   pull_request:
@@ -62,16 +62,3 @@ jobs:
         with:
           command: php --version
           version: ${{ matrix.php-version }}
-
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install shfmt
-        run: brew install shfmt
-
-      - name: Run shfmt
-        run: make fmt-check
