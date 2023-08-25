@@ -209,7 +209,7 @@ os_based_configure_options() {
     local webp_path=$(homebrew_package_path webp)
     local zlib_path=$(homebrew_package_path zlib)
     local pcre_path=$(homebrew_package_path pcre)
-    local postgres_path=$(homebrew_package_path postgres)
+    local postgres_path=$(homebrew_package_path libpq)
 
     # optional
     # if these packages exist they are included in the php compilation
