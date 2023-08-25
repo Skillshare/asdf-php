@@ -1,0 +1,56 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    # Every Friday at 00:00
+    - cron: 0 0 * * 5
+
+jobs:
+  plugin-test-macos:
+    strategy:
+      matrix:
+        os:
+          - macos-13
+        php-version:
+          - 8.0.30
+          - 8.1.22
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Install brews
+        run: >-
+          brew install
+          autoconf
+          automake
+          argon2
+          bison
+          freetype
+          gd
+          gettext
+          icu4c
+          krb5
+          libedit
+          libiconv
+          libjpeg
+          libpng
+          libxml2
+          libzip
+          openssl@1.1
+          pcre
+          pkg-config
+          re2c
+          zlib
+
+      - name: Install conflicts
+        run: brew install openssl@3
+
+      - name: Test install
+        uses: asdf-vm/actions/plugin-test@v2
+        with:
+          command: php --version
+          version: ${{ matrix.php-version }}
