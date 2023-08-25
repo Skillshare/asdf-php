@@ -23,12 +23,18 @@ install_php() {
   if [[ $operating_system =~ "Darwin" ]]; then
     exit_if_homebrew_not_installed
 
+    local argon2_path=$(homebrew_package_path argon2)
     local bison_path=$(homebrew_package_path bison)
     local icu4c_path=$(homebrew_package_path icu4c)
     local krb5_path=$(homebrew_package_path krb5)
     local libedit_path=$(homebrew_package_path libedit)
     local libxml2_path=$(homebrew_package_path libxml2)
     local openssl_path=$(homebrew_package_path openssl@1.1)
+
+    # argon2 is optional
+    if [ -n "$argon2_path" ]; then
+      export "PKG_CONFIG_PATH=${argon2_path}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+    fi
 
     if [ -n "$bison_path" ]; then
       export "PATH=${bison_path}/bin:${PATH}"
@@ -213,6 +219,7 @@ os_based_configure_options() {
 
     # optional
     # if these packages exist they are included in the php compilation
+    local argon2_path=$(homebrew_package_path argon2)
     local gmp_path=$(homebrew_package_path gmp)
     local sodium_path=$(homebrew_package_path libsodium)
 
@@ -226,6 +233,12 @@ os_based_configure_options() {
       configure_options="$configure_options --with-sodium=$sodium_path"
     else
       echo "sodium not found, not including in installation"
+    fi
+
+    if [ -n "$argon2_path" ]; then
+      configure_options="$configure_options --with-password-argon2"
+    else
+      echo "argon2 not found, not including in installation"
     fi
 
     if [ -n "$freetype_path" ]; then

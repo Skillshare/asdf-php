@@ -27,6 +27,7 @@ jobs:
           brew install
           autoconf
           automake
+          argon2
           bison
           freetype
           gd
