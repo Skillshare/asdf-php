@@ -38,11 +38,14 @@ jobs:
           libpng
           libxml2
           libzip
-          openssl@3
+          openssl@1.1
           pcre
           pkg-config
           re2c
           zlib
+
+      - name: Install conflicts
+        run: brew install openssl@3
 
       - name: Test install
         uses: asdf-vm/actions/plugin-test@v2
